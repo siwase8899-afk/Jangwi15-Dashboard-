@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jangwi 15 Developer Dashboard (V3.1)</title>
+    <title>Jangwi 15 Developer Dashboard (V4.0)</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         :root { 
@@ -27,8 +27,8 @@
         .sidebar-header h1 { margin: 0; font-size: 20px; color: #f8fafc; font-weight: 700; line-height: 1.4; }
         .sidebar-header .meta { font-size: 13px; color: #94a3b8; margin-top: 8px; font-weight: 500; }
         
-        .nav-menu { list-style: none; padding: 0; margin: 10px 0; flex-grow: 1; }
-        .nav-item { padding: 16px 25px; font-size: 15px; cursor: pointer; transition: all 0.2s ease; border-left: 4px solid transparent; color: #cbd5e1; font-weight: 500; }
+        .nav-menu { list-style: none; padding: 0; margin: 10px 0; flex-grow: 1; overflow-y: auto; }
+        .nav-item { padding: 15px 25px; font-size: 15px; cursor: pointer; transition: all 0.2s ease; border-left: 4px solid transparent; color: #cbd5e1; font-weight: 500; display: flex; align-items: center; gap: 8px; }
         .nav-item:hover { background-color: var(--menu-hover); color: white; }
         .nav-item.active { background-color: var(--menu-hover); border-left-color: #3b82f6; color: white; font-weight: 700; }
         
@@ -52,6 +52,7 @@
         .col-5 { grid-column: span 5; }
         .col-6 { grid-column: span 6; }
         .col-7 { grid-column: span 7; }
+        .col-8 { grid-column: span 8; }
         .col-12 { grid-column: span 12; }
         
         .card { background: var(--card-bg); padding: 28px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid var(--border); margin-bottom: 24px; }
@@ -106,6 +107,7 @@
         
         <ul class="nav-menu">
             <li class="nav-item active" onclick="switchTab('tab-overview')">🏠 대시보드 종합 요약</li>
+            <li class="nav-item" onclick="switchTab('tab-deepdive')" style="color: #60a5fa; font-weight: 700;">📑 딥다이브 분석 리포트</li>
             <li class="nav-item" onclick="switchTab('tab-calc')">📊 투자 타당성 분석기</li>
             <li class="nav-item" onclick="switchTab('tab-market')">🚨 전문 중개소 & 매물 표</li>
             <li class="nav-item" onclick="switchTab('tab-consulting')">💡 리스크 관리 보드</li>
@@ -143,10 +145,10 @@
                         <div class="value">5억 8,000만 원</div>
                         <a href="http://rt.molit.go.kr/" target="_blank" class="source-link">출처: 국토교통부 실거래가 ↗</a>
                     </div>
-                    <div class="widget-box">
-                        <div class="label">시장 평균 실투자금(갭) 수준</div>
-                        <div class="value highlight">약 4억 ~ 5억 선</div>
-                        <span class="source-link" style="color:#64748b; text-decoration:none;">근거: 중개소 블로그 데이터 통합</span>
+                    <div class="widget-box" style="border: 2px solid #ef4444; background: #fef2f2;">
+                        <div class="label" style="color:#b91c1c;">[주의] 시공사 평당 공사비</div>
+                        <div class="value highlight">약 830만 원</div>
+                        <span class="source-link" style="color:#7f1d1d; text-decoration:none;">근거: 26.03 재개발 분석 리포트</span>
                     </div>
                 </div>
 
@@ -175,7 +177,98 @@
             </div>
         </div>
 
-        <!-- Tab 2: Calculator -->
+        <!-- Tab 2: NEW Deep Dive Report Tab -->
+        <div id="tab-deepdive" class="tab-content">
+            <div class="section-header">
+                <h2>📑 딥다이브 분석 리포트 (시각화)</h2>
+                <p>2026.03 장위 15구역 재개발 전문 분석 보고서에서 도출된 핵심 IRR, 일정, 리스크 컴포넌트입니다.</p>
+            </div>
+            
+            <div class="grid">
+                <!-- IRR Scenarios -->
+                <div class="card col-12">
+                    <div class="card-header">
+                        <h3>📈 수익률(IRR) 시나리오 분석 (N=8년 가정)</h3>
+                        <span class="source-tag">기준일: 2026.03 분석 보고서 발췌</span>
+                    </div>
+                    <div class="grid" style="grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                        <div style="background: #f0fdf4; padding: 24px; border-radius: 12px; border: 1px solid #bbf7d0; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                            <h4 style="color: #166534; margin: 0 0 15px 0; font-size: 18px; border-bottom: 2px solid #86efac; padding-bottom: 10px;">🟢 낙관적 시나리오 <br><span style="font-size: 24px; font-weight: 800; color: #15803d;">IRR 연 17%</span></h4>
+                            <ul style="font-size:14.5px; padding-left:20px; margin:0; color:#15803d; line-height: 1.8;">
+                                <li><strong>현재 매입가:</strong> 4.3억</li>
+                                <li><strong>예상 총 분담금:</strong> 2.0억 방어</li>
+                                <li><strong>준공 매각가:</strong> 19.0억 (초강세장)</li>
+                            </ul>
+                        </div>
+                        <div style="background: #eff6ff; padding: 24px; border-radius: 12px; border: 1px solid #bfdbfe; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                            <h4 style="color: #1e40af; margin: 0 0 15px 0; font-size: 18px; border-bottom: 2px solid #93c5fd; padding-bottom: 10px;">🔵 중립적 시나리오 <br><span style="font-size: 24px; font-weight: 800; color: #1d4ed8;">IRR 연 11%</span></h4>
+                            <ul style="font-size:14.5px; padding-left:20px; margin:0; color:#1d4ed8; line-height: 1.8;">
+                                <li><strong>현재 매입가:</strong> 5.0억</li>
+                                <li><strong>예상 총 분담금:</strong> 3.5억</li>
+                                <li><strong>준공 매각가:</strong> 16.5억 (장위자이 레벨)</li>
+                            </ul>
+                        </div>
+                        <div style="background: #fef2f2; padding: 24px; border-radius: 12px; border: 1px solid #fecdd3; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                            <h4 style="color: #9f1239; margin: 0 0 15px 0; font-size: 18px; border-bottom: 2px solid #fda4af; padding-bottom: 10px;">🔴 보수적 시나리오 <br><span style="font-size: 24px; font-weight: 800; color: #be123c;">IRR 연 4%</span></h4>
+                            <ul style="font-size:14.5px; padding-left:20px; margin:0; color:#be123c; line-height: 1.8;">
+                                <li><strong>현재 매입가:</strong> 6.0억</li>
+                                <li><strong>예상 총 분담금:</strong> 5.0억 (공사비 폭등)</li>
+                                <li><strong>준공 매각가:</strong> 14.0억 (보합장)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; padding: 15px; background: #f8fafc; border-radius: 8px; border-left: 4px solid var(--primary);">
+                        <p style="margin:0; font-size:14px; font-weight:600; color:var(--primary);">💡 [핵심 인사이트] 초기 매입가를 5천만 원 깎는 것보다, 향후 발생하는 '분담금 1~2억 상승'을 방어하는 것이 수익률(IRR)에 절대적인 영향을 미칩니다. 평당 공사비 830만 원은 분담금 상승의 상수입니다.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Visual & Major Risks -->
+                <div class="card col-6">
+                    <div class="card-header">
+                        <h3>⏳ 소요 기간 시각화 (병목 구간)</h3>
+                    </div>
+                    <div style="padding: 10px 0;">
+                        <div style="display:flex; justify-content:space-between; font-size:14px; font-weight:700; color:var(--secondary); margin-bottom:12px;">
+                            <span>현재 (시공사 선정)</span>
+                            <span>입주 (최소 6.5년 ~ 최대 13.5년)</span>
+                        </div>
+                        <!-- Custom Progress Bar -->
+                        <div style="background:#e2e8f0; height:30px; border-radius:15px; overflow:hidden; display:flex; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);">
+                            <div style="background:#3b82f6; width:30%; display:flex; align-items:center; justify-content:center; color:white; font-size:12px; font-weight:bold;" title="사업시행인가 (18~42개월)">사업시행 (병목)</div>
+                            <div style="background:#f59e0b; width:20%; display:flex; align-items:center; justify-content:center; color:white; font-size:12px; font-weight:bold;" title="관리처분 (12~24개월)">관처</div>
+                            <div style="background:#ef4444; width:20%; display:flex; align-items:center; justify-content:center; color:white; font-size:12px; font-weight:bold;" title="이주/철거 (12~24개월)">이주/철거</div>
+                            <div style="background:#10b981; width:30%; display:flex; align-items:center; justify-content:center; color:white; font-size:12px; font-weight:bold;" title="착공~준공 (36~54개월)">공사/입주</div>
+                        </div>
+                        <ul style="margin-top:25px; padding-left:20px; font-size:14px; color:var(--text-light); line-height:1.7;">
+                            <li><strong>가장 큰 병목:</strong> 통합심의 보완 및 사업시행인가 단계.</li>
+                            <li>이중 조합 (가로주택 존치) 소송 변수가 인허가를 지연시킬 수 있음.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card col-6">
+                    <div class="card-header">
+                        <h3>⚠️ 3대 뇌관 리스크 (Developer View)</h3>
+                    </div>
+                    <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;">
+                        <li style="background:#fff1f2; border-left:4px solid #e11d48; padding:16px; border-radius:6px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                            <strong style="color:#e11d48; font-size:15px; display:block; margin-bottom:4px;">1. 고공사비 폭탄 (평당 830만 원)</strong>
+                            <p style="margin:0; font-size:13.5px;">총 1조 4,660억 원 규모. 금리 및 PF 환경 악화와 맞물려 조합원 분담금 수직 상승의 가장 큰 뇌관입니다.</p>
+                        </li>
+                        <li style="background:#fffbeb; border-left:4px solid #d97706; padding:16px; border-radius:6px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                            <strong style="color:#d97706; font-size:15px; display:block; margin-bottom:4px;">2. 구역 내 이중 조합 갈등</strong>
+                            <p style="margin:0; font-size:13.5px;">재개발 구역 내 가로주택조합이 존치. 1심 소송은 기각되었으나 통합/건축심의 등 핵심 인허가 발목 잡기 우려.</p>
+                        </li>
+                        <li style="background:#f0f9ff; border-left:4px solid #0284c7; padding:16px; border-radius:6px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                            <strong style="color:#0284c7; font-size:15px; display:block; margin-bottom:4px;">3. 투기과열 & 허가구역 묶임</strong>
+                            <p style="margin:0; font-size:13.5px;">25.10.15 이후 규제지역 지정으로 주담대 한도 차등(LTV 제약) 및 실거주 의무 등 자금 유동성 극심 제약.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Calculator -->
         <div id="tab-calc" class="tab-content">
             <div class="section-header">
                 <h2>📊 초기 투자금 및 프리미엄 타당성 분석</h2>
@@ -221,13 +314,13 @@
                     </div>
                     <div style="margin-top: 24px; padding: 20px; background: #fffbeb; border-radius: 8px; border: 1px solid #fef08a; font-size: 14px;">
                         <strong style="color: #b45309;">💡 디벨로퍼 코멘트</strong>
-                        <p style="margin: 8px 0 0 0; color: #78350f;">재개발 투자의 핵심은 '가성비 좋은 감평가'를 선점하는 것입니다. 도출된 프리미엄(P)이 주변 신축 시세 대비 어느 정도의 안전 마진을 확보하고 있는지 역산해야 합니다.</p>
+                        <p style="margin: 8px 0 0 0; color: #78350f;">장위 15구역은 평당 공사비 830만 원으로 분담금 상방이 크게 열려 있습니다. 프리미엄(P)이 주변 앵커 시세(꿈의숲 아이파크 13.6억) 대비 수익률 11% 이상을 방어할 수 있는지 보수적으로 검토해야 합니다.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Tab 3: Market Tracking -->
+        <!-- Tab 4: Market Tracking -->
         <div id="tab-market" class="tab-content">
             <div class="section-header">
                 <h2>🚨 전문 중개소 블로그 및 매물 현황 표</h2>
@@ -256,9 +349,6 @@
                             <tr><td colspan="7" style="color:#94a3b8; padding: 20px;">데이터를 불러오는 중입니다...</td></tr>
                         </tbody>
                     </table>
-                    <div style="margin-top: 15px; font-size: 13px; color: #64748b;">
-                        * 현재 타겟팅 중인 주요 블로그: <strong>태광공인중개사, 114뉴타운, 안창공인중개사, 네이버 실시간 검색 상위 블로그</strong>
-                    </div>
                 </div>
 
                 <div class="card col-12">
@@ -288,7 +378,7 @@
             </div>
         </div>
 
-        <!-- Tab 4: Consulting Board -->
+        <!-- Tab 5: Consulting Board -->
         <div id="tab-consulting" class="tab-content">
             <div class="section-header">
                 <h2>💡 리스크 관리 보드</h2>
@@ -296,32 +386,7 @@
             </div>
             
             <div class="grid">
-                <div class="card col-6">
-                    <div class="card-header">
-                        <h3>정비사업 마일스톤 (장위 15구역)</h3>
-                        <a href="https://cleanup.seoul.go.kr/" target="_blank" class="source-tag">출처: 서울시 정비사업 정보몽땅 ↗</a>
-                    </div>
-                    <div class="timeline">
-                        <div class="timeline-step">
-                            <h4>1. 구역지정 ~ 조합설립 인가 (완료)</h4>
-                            <p>가장 긴 불확실성이 해소된 단계. 해제 후 재지정되는 우여곡절을 겪었으나 현재 조합설립 완료 및 안정화 진입.</p>
-                        </div>
-                        <div class="timeline-step active">
-                            <h4>2. 시공사 선정 완료 (25.12 현대건설)</h4>
-                            <p><strong>현재 좌표:</strong> 1군 건설사 프리미엄이 반영되며 1차 가격 상승. '사업시행인가(건축심의)' 전후로 세대수 확정 시 2차 상승 예상.</p>
-                        </div>
-                        <div class="timeline-step">
-                            <h4>3. 사업시행인가 ~ 감정평가</h4>
-                            <p>매입한 구옥의 공식적인 '권리가액'이 매겨지고, 조합원 평형을 신청하는 시기.</p>
-                        </div>
-                        <div class="timeline-step">
-                            <h4>4. 관리처분 인가 ~ 이주/철거</h4>
-                            <p>재개발 9부 능선. 입주권 상태로 전환되며 갭투자자는 세입자 보증금을 자력 반환해야 하는 현금 유동성 점검 시기.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card col-6">
+                <div class="card col-12">
                     <div class="card-header">
                         <h3>실무 방어 전략 및 핵심 리스크</h3>
                         <span class="source-tag" style="background: #fef2f2; color: #ef4444; border: 1px solid #fca5a5;">Developer Check</span>
@@ -333,14 +398,6 @@
                             <li style="margin-bottom: 8px;"><strong>권리산정기준일:</strong> 해당 매물이 기준일 이후 다세대로 분할된 지분쪼개기 물건이 아닌지 대장 확인 필수.</li>
                             <li style="margin-bottom: 8px;"><strong>무허가건축물 대장:</strong> 뚜껑 매물 매입 시, 구청 등재 여부 및 조례 면적 기준 충족 크로스 체크.</li>
                             <li><strong>조합원 자격 양도:</strong> 투기과열지구 내 재개발은 '관리처분인가' 이후 전매 금지됨을 계약 특약에 명시.</li>
-                        </ul>
-                    </div>
-                    
-                    <div style="background: #fff1f2; padding: 20px; border-radius: 8px; border: 1px solid #fecdd3;">
-                        <h4 style="margin: 0 0 12px 0; color: #e11d48; font-size: 16px;">⚠️ 마진 압박 시나리오</h4>
-                        <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #881337;">
-                            <li style="margin-bottom: 8px;"><strong>공사비 급등 (추가분담금 폭탄):</strong> 평당 공사비 700~800만 원 선 급등 시 수익률 하락. (스트레스 테스트 요망)</li>
-                            <li><strong>비례율 하락 리스크:</strong> 일반 분양가 미달 시 조합원 권리가액 삭감 위험.</li>
                         </ul>
                     </div>
                 </div>
@@ -382,13 +439,9 @@
             const fullTable = document.getElementById('full-table-list');
             
             try {
-                let items = [];
-                if (window.INJECTED_TRACKING_DATA) {
-                    items = window.INJECTED_TRACKING_DATA;
-                } else {
-                    const response = await fetch('Tracking/scraped_items.json?v=' + new Date().getTime());
-                    items = await response.json();
-                }
+                // Use cache bypass for github pages
+                const response = await fetch('Tracking/scraped_items.json?v=' + new Date().getTime());
+                const items = await response.json();
                 
                 if (items.length === 0) {
                     const emptyMsg = '<tr><td colspan="7" style="color:#94a3b8; padding: 20px;">새로 수집된 매물이 없습니다.</td></tr>';
@@ -397,10 +450,8 @@
                     return;
                 }
 
-                // Function to render table rows
                 const renderRows = (dataList) => {
                     return dataList.map(item => {
-                        // Extract broker name from title (e.g., "[태광공인]") or fallback
                         let brokerName = "현지 중개소";
                         if (item.title.includes('[')) {
                             brokerName = item.title.split(']')[0].replace('[', '');
@@ -420,10 +471,7 @@
                     }).join('');
                 };
 
-                // Fill Full Table
                 fullTable.innerHTML = renderRows(items);
-
-                // Fill Overview Table (Top 3)
                 overviewTable.innerHTML = renderRows(items.slice(0, 3));
 
             } catch (error) {
@@ -433,7 +481,6 @@
             }
         }
         
-        // Initialize
         loadTrackedItems();
     </script>
 </body>

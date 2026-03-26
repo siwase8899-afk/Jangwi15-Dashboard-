@@ -386,7 +386,7 @@
                 if (window.INJECTED_TRACKING_DATA) {
                     items = window.INJECTED_TRACKING_DATA;
                 } else {
-                    const response = await fetch('Tracking/scraped_items.json');
+                    const response = await fetch('Tracking/scraped_items.json?v=' + new Date().getTime());
                     items = await response.json();
                 }
                 

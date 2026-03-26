@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jangwi 15 Developer Dashboard (V4.0)</title>
+    <title>Jangwi 15 Developer Dashboard (V4.1)</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         :root { 
@@ -22,16 +22,22 @@
         p, li { line-height: 1.7; color: #475569; }
         
         /* Sidebar Navigation */
-        .sidebar { width: 260px; background-color: var(--primary); color: white; display: flex; flex-direction: column; flex-shrink: 0; z-index: 10; }
+        .sidebar { width: 270px; background-color: var(--primary); color: white; display: flex; flex-direction: column; flex-shrink: 0; z-index: 10; }
         .sidebar-header { padding: 30px 20px; background-color: #0f172a; border-bottom: 1px solid #334155; }
         .sidebar-header h1 { margin: 0; font-size: 20px; color: #f8fafc; font-weight: 700; line-height: 1.4; }
         .sidebar-header .meta { font-size: 13px; color: #94a3b8; margin-top: 8px; font-weight: 500; }
         
         .nav-menu { list-style: none; padding: 0; margin: 10px 0; flex-grow: 1; overflow-y: auto; }
-        .nav-item { padding: 15px 25px; font-size: 15px; cursor: pointer; transition: all 0.2s ease; border-left: 4px solid transparent; color: #cbd5e1; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+        .nav-section { margin-top: 20px; padding: 0 25px 8px 25px; font-size: 12px; font-weight: 700; color: #64748b; letter-spacing: 0.5px; }
+        .nav-item { padding: 12px 25px; font-size: 15px; cursor: pointer; transition: all 0.2s ease; border-left: 4px solid transparent; color: #cbd5e1; font-weight: 500; display: flex; align-items: center; gap: 8px; }
         .nav-item:hover { background-color: var(--menu-hover); color: white; }
         .nav-item.active { background-color: var(--menu-hover); border-left-color: #3b82f6; color: white; font-weight: 700; }
         
+        /* Sub Items (Folders) */
+        .nav-item.sub-item { padding: 10px 25px 10px 40px; font-size: 14px; color: #94a3b8; }
+        .nav-item.sub-item::before { content: '└'; margin-right: 4px; color: #475569; }
+        .nav-item.sub-item.active { color: #60a5fa; font-weight: 700; }
+
         .notion-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background-color: #2563eb; color: white; padding: 14px 20px; margin: 0 20px 20px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; transition: 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .notion-btn:hover { background-color: #1d4ed8; transform: translateY(-2px); }
 
@@ -106,11 +112,15 @@
         </div>
         
         <ul class="nav-menu">
-            <li class="nav-item active" onclick="switchTab('tab-overview')">🏠 대시보드 종합 요약</li>
-            <li class="nav-item" onclick="switchTab('tab-deepdive')" style="color: #60a5fa; font-weight: 700;">📑 딥다이브 분석 리포트</li>
+            <div class="nav-section">MAIN DASHBOARD</div>
+            <li class="nav-item active" onclick="switchTab('tab-overview')">🏠 종합 현황 브리핑</li>
             <li class="nav-item" onclick="switchTab('tab-calc')">📊 투자 타당성 분석기</li>
             <li class="nav-item" onclick="switchTab('tab-market')">🚨 전문 중개소 & 매물 표</li>
             <li class="nav-item" onclick="switchTab('tab-consulting')">💡 리스크 관리 보드</li>
+
+            <div class="nav-section">📂 심층 분석 리포트</div>
+            <li class="nav-item sub-item" onclick="switchTab('tab-deepdive')">📑 딥서치 분석 (26.03)</li>
+            <li class="nav-item sub-item" onclick="switchTab('tab-chatgpt')">🤖 챗GPT 교차 검증</li>
         </ul>
 
         <!-- Notion Direct Link Button -->
@@ -177,10 +187,10 @@
             </div>
         </div>
 
-        <!-- Tab 2: NEW Deep Dive Report Tab -->
+        <!-- Tab 2: Deep Search Report Tab -->
         <div id="tab-deepdive" class="tab-content">
             <div class="section-header">
-                <h2>📑 딥다이브 분석 리포트 (시각화)</h2>
+                <h2>📑 딥서치 분석 (Deep Search)</h2>
                 <p>2026.03 장위 15구역 재개발 전문 분석 보고서에서 도출된 핵심 IRR, 일정, 리스크 컴포넌트입니다.</p>
             </div>
             
@@ -232,7 +242,6 @@
                             <span>현재 (시공사 선정)</span>
                             <span>입주 (최소 6.5년 ~ 최대 13.5년)</span>
                         </div>
-                        <!-- Custom Progress Bar -->
                         <div style="background:#e2e8f0; height:30px; border-radius:15px; overflow:hidden; display:flex; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);">
                             <div style="background:#3b82f6; width:30%; display:flex; align-items:center; justify-content:center; color:white; font-size:12px; font-weight:bold;" title="사업시행인가 (18~42개월)">사업시행 (병목)</div>
                             <div style="background:#f59e0b; width:20%; display:flex; align-items:center; justify-content:center; color:white; font-size:12px; font-weight:bold;" title="관리처분 (12~24개월)">관처</div>
@@ -268,6 +277,21 @@
             </div>
         </div>
 
+        <!-- Tab 2-1: ChatGPT Report Tab (Placeholder) -->
+        <div id="tab-chatgpt" class="tab-content">
+            <div class="section-header">
+                <h2>🤖 챗GPT 교차 검증 (ChatGPT Analysis)</h2>
+                <p>딥서치 리포트를 교차 검증하거나, 새로운 챗GPT 분석 데이터를 아카이빙하는 공간입니다.</p>
+            </div>
+            <div class="grid">
+                <div class="card col-12" style="text-align: center; padding: 60px 20px;">
+                    <div style="font-size: 40px; margin-bottom: 20px;">🤖</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--secondary);">데이터 수집 대기 중</h3>
+                    <p style="color: var(--text-light); margin: 0;">추후 챗GPT를 통해 분석한 새로운 시나리오나 교차 검증 내용이 이곳에 추가될 예정입니다.</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Tab 3: Calculator -->
         <div id="tab-calc" class="tab-content">
             <div class="section-header">
@@ -281,19 +305,19 @@
                         <h3>투자 시뮬레이션 입력</h3>
                     </div>
                     <div class="form-group">
-                        <label>매매가 (원) <span style="font-size:12px; color:#94a3b8; font-weight:normal;">(근거: 네이버 부동산 호가)</span></label>
+                        <label>매매가 (원)</label>
                         <input type="number" id="purchasePrice" value="600000000" oninput="calculate()">
                     </div>
                     <div class="form-group">
-                        <label>예상 감정평가액 (원) <span style="font-size:12px; color:#94a3b8; font-weight:normal;">(근거: 공시지가 130% 추정)</span></label>
+                        <label>예상 감정평가액 (원)</label>
                         <input type="number" id="appraisalValue" value="250000000" oninput="calculate()">
                     </div>
                     <div class="form-group">
-                        <label>전/월세 보증금 승계 (원) <span style="font-size:12px; color:#94a3b8; font-weight:normal;">(근거: 세입자 기존 계약서)</span></label>
+                        <label>전/월세 보증금 승계 (원)</label>
                         <input type="number" id="deposit" value="150000000" oninput="calculate()">
                     </div>
                     <div class="form-group">
-                        <label>취득세 및 기타비용 (원) <span style="font-size:12px; color:#94a3b8; font-weight:normal;">(근거: 지방세법 요율 적용)</span></label>
+                        <label>취득세 및 기타비용 (원)</label>
                         <input type="number" id="taxes" value="12000000" oninput="calculate()">
                     </div>
                 </div>
@@ -314,7 +338,7 @@
                     </div>
                     <div style="margin-top: 24px; padding: 20px; background: #fffbeb; border-radius: 8px; border: 1px solid #fef08a; font-size: 14px;">
                         <strong style="color: #b45309;">💡 디벨로퍼 코멘트</strong>
-                        <p style="margin: 8px 0 0 0; color: #78350f;">장위 15구역은 평당 공사비 830만 원으로 분담금 상방이 크게 열려 있습니다. 프리미엄(P)이 주변 앵커 시세(꿈의숲 아이파크 13.6억) 대비 수익률 11% 이상을 방어할 수 있는지 보수적으로 검토해야 합니다.</p>
+                        <p style="margin: 8px 0 0 0; color: #78350f;">장위 15구역은 평당 공사비 830만 원으로 분담금 상방이 크게 열려 있습니다. 프리미엄(P)이 주변 앵커 시세 대비 수익률 11% 이상을 방어할 수 있는지 보수적으로 검토해야 합니다.</p>
                     </div>
                 </div>
             </div>
@@ -350,11 +374,10 @@
                         </tbody>
                     </table>
                 </div>
-
                 <div class="card col-12">
                     <div class="card-header">
-                        <h3>📈 장위동 15구역 인근 최근 실거래가 (매물 P 산정 기준)</h3>
-                        <a href="http://rt.molit.go.kr/" target="_blank" class="source-tag">출처: 국토교통부 실거래가 공개시스템 ↗</a>
+                        <h3>📈 장위동 15구역 인근 최근 실거래가</h3>
+                        <a href="http://rt.molit.go.kr/" target="_blank" class="source-tag">출처: 국토교통부 실거래가 ↗</a>
                     </div>
                     <table>
                         <thead>
@@ -407,7 +430,6 @@
     </div>
 
     <script>
-        // Tab Navigation
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
@@ -418,7 +440,6 @@
             if(activeMenu) activeMenu.classList.add('active');
         }
 
-        // ROI Calculator
         function calculate() {
             const purchasePrice = parseFloat(document.getElementById('purchasePrice').value) || 0;
             const appraisalValue = parseFloat(document.getElementById('appraisalValue').value) || 0;
@@ -433,20 +454,18 @@
         }
         calculate();
 
-        // Tracker Loading (Table format)
         async function loadTrackedItems() {
             const overviewTable = document.getElementById('overview-table-list');
             const fullTable = document.getElementById('full-table-list');
             
             try {
-                // Use cache bypass for github pages
                 const response = await fetch('Tracking/scraped_items.json?v=' + new Date().getTime());
                 const items = await response.json();
                 
                 if (items.length === 0) {
                     const emptyMsg = '<tr><td colspan="7" style="color:#94a3b8; padding: 20px;">새로 수집된 매물이 없습니다.</td></tr>';
-                    overviewTable.innerHTML = emptyMsg;
-                    fullTable.innerHTML = emptyMsg;
+                    if (overviewTable) overviewTable.innerHTML = emptyMsg;
+                    if (fullTable) fullTable.innerHTML = emptyMsg;
                     return;
                 }
 
@@ -471,13 +490,13 @@
                     }).join('');
                 };
 
-                fullTable.innerHTML = renderRows(items);
-                overviewTable.innerHTML = renderRows(items.slice(0, 3));
+                if (fullTable) fullTable.innerHTML = renderRows(items);
+                if (overviewTable) overviewTable.innerHTML = renderRows(items.slice(0, 3));
 
             } catch (error) {
-                const errMsg = '<tr><td colspan="7" style="color:#ef4444; padding: 20px;">로컬 데이터를 읽어올 수 없습니다. 파이썬 스크래퍼를 실행해주세요.</td></tr>';
-                overviewTable.innerHTML = errMsg;
-                fullTable.innerHTML = errMsg;
+                const errMsg = '<tr><td colspan="7" style="color:#ef4444; padding: 20px;">데이터를 불러오는 중입니다 (업데이트 대기)</td></tr>';
+                if (overviewTable) overviewTable.innerHTML = errMsg;
+                if (fullTable) fullTable.innerHTML = errMsg;
             }
         }
         

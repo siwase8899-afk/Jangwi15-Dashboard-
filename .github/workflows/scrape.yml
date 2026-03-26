@@ -1,0 +1,32 @@
+name: "Jangwi 15 Tracker & Dashboard Auto-Update"
+
+on:
+  schedule:
+    - cron: '0 */3 * * *' # Every 3 hours
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  scrape-and-update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to push changes back to the repo
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Run Scraper
+        run: python Tracking/jangwi15_scraper.py
+
+      - name: Commit and Push Updated Items
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add Tracking/scraped_items.json
+          git commit -m "Auto-update: Scraped new Jangwi 15 properties" || echo "No changes to commit"
+          git push
